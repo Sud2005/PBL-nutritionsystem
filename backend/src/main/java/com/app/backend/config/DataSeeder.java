@@ -4,7 +4,8 @@ import com.app.backend.model.CuisineType;
 import com.app.backend.model.FoodCategory;
 import com.app.backend.model.FoodItem;
 import com.app.backend.repository.FoodItemRepository;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class DataSeeder {
 
     @Bean
-    public CommandLineRunner seedDatabase(FoodItemRepository repo) {
+    public ApplicationRunner seedDatabase(FoodItemRepository repo) {
         return args -> {
             if (repo.count() == 0) {
                 repo.saveAll(List.of(
