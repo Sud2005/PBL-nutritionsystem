@@ -6,6 +6,7 @@ import DietDashboardPage from './pages/DietDashboardPage';
 import HistoryPage from './pages/HistoryPage';
 import AdminPanel from './pages/AdminPanel';
 import NutritionistDashboard from './pages/NutritionistDashboard';
+import ChatPage from './pages/ChatPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
@@ -33,6 +34,11 @@ function App() {
         <Route path="/nutritionist" element={
           <ProtectedRoute>
             <NutritionistDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/chat" element={
+          <ProtectedRoute>
+            <ChatPage />
           </ProtectedRoute>
         } />
         <Route path="/profile" element={

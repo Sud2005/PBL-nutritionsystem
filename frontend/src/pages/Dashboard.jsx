@@ -90,6 +90,9 @@ const Dashboard = () => {
                 <button className="btn" onClick={() => navigate('/history')} style={{ width: 'auto', padding: '6px 16px', background: '#10b981', color: '#fff', fontSize: '14px', margin: 0 }}>
                   Plan History
                 </button>
+                <button className="btn" onClick={() => navigate('/chat')} style={{ width: 'auto', padding: '6px 16px', background: '#8b5cf6', color: '#fff', fontSize: '14px', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>👩‍⚕️</span> Ask Priya AI
+                </button>
                 <button className="btn" onClick={() => navigate('/diet')} style={{ width: 'auto', padding: '6px 16px', background: 'var(--primary-color)', color: '#fff', fontSize: '14px', margin: 0 }}>
                   Indian Diet Engine
                 </button>
