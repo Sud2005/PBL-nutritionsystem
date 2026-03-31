@@ -116,32 +116,32 @@ const HealthProfilePage = () => {
             <div className="device-simulation">
               {!deviceConnected && !deviceConnecting && (
                 <>
-                  <Bluetooth size={48} color="#697386" style={{margin: '0 auto', marginBottom: '10px'}} />
-                  <p style={{marginBottom: '16px'}}>Xiaomi Smart Scale v2</p>
+                  <Bluetooth size={48} color="var(--text-muted)" style={{margin: '0 auto', marginBottom: '10px'}} />
+                  <p style={{marginBottom: '16px', color: 'var(--text-color)'}}>Xiaomi Smart Scale v2</p>
                   <button className="btn" onClick={connectDevice} style={{width: 'auto', padding: '10px 24px'}}>Connect Device</button>
-                  <p style={{marginTop: '16px', fontSize: '12px', color:'#697386'}}>Or enter manually below</p>
+                  <p style={{marginTop: '16px', fontSize: '12px', color:'var(--text-dim)'}}>Or enter manually below</p>
                 </>
               )}
               
               {deviceConnecting && (
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                  <Bluetooth size={48} color="#3b82f6" className="animate-pulse" style={{margin: '0 auto', marginBottom: '10px'}} />
+                  <Bluetooth size={48} color="var(--accent-blue)" className="animate-pulse" style={{margin: '0 auto', marginBottom: '10px'}} />
                   <p>Connecting...</p>
                 </div>
               )}
 
               {deviceConnected && (
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#10b981'}}>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'var(--accent-green)'}}>
                   <CheckCircle size={48} style={{margin: '0 auto', marginBottom: '10px'}} />
                   <p style={{fontWeight: 600, fontSize: '18px'}}>Connected</p>
-                  <div style={{display: 'flex', gap: '20px', marginTop: '16px', color: '#1a1f36'}}>
+                  <div style={{display: 'flex', gap: '20px', marginTop: '16px', color: 'var(--text-color)'}}>
                     <div style={{textAlign: 'center'}}>
                       <div style={{fontSize: '24px', fontWeight: 700}}>{formData.weightKg} kg</div>
-                      <div style={{fontSize: '12px', color: '#697386'}}>Weight</div>
+                      <div style={{fontSize: '12px', color: 'var(--text-dim)'}}>Weight</div>
                     </div>
                     <div style={{textAlign: 'center'}}>
                       <div style={{fontSize: '24px', fontWeight: 700}}>{formData.bodyFatPercent}%</div>
-                      <div style={{fontSize: '12px', color: '#697386'}}>Body Fat</div>
+                      <div style={{fontSize: '12px', color: 'var(--text-dim)'}}>Body Fat</div>
                     </div>
                   </div>
                 </div>
@@ -157,7 +157,7 @@ const HealthProfilePage = () => {
               <input type="number" name="bodyFatPercent" className="form-control" value={formData.bodyFatPercent} onChange={handleChange} />
             </div>
             <div style={{display: 'flex', gap: '10px'}}>
-              <button className="btn" style={{background: '#e3e8ee', color: '#1a1f36'}} onClick={handlePrev}>Back</button>
+              <button className="action-btn ghost" onClick={handlePrev}>Back</button>
               <button className="btn" onClick={handleNext} disabled={!formData.weightKg}>Next Step</button>
             </div>
           </div>
@@ -199,7 +199,7 @@ const HealthProfilePage = () => {
               </div>
             </div>
             <div style={{display: 'flex', gap: '10px'}}>
-              <button className="btn" style={{background: '#e3e8ee', color: '#1a1f36'}} onClick={handlePrev}>Back</button>
+              <button className="action-btn ghost" onClick={handlePrev}>Back</button>
               <button className="btn" onClick={handleNext}>Next Step</button>
             </div>
           </div>
@@ -223,7 +223,7 @@ const HealthProfilePage = () => {
               </div>
             </div>
             <div style={{display: 'flex', gap: '10px', marginTop: '24px'}}>
-              <button className="btn" style={{background: '#e3e8ee', color: '#1a1f36'}} onClick={handlePrev}>Back</button>
+              <button className="action-btn ghost" onClick={handlePrev}>Back</button>
               <button className="btn" onClick={handleSubmit}>Complete Profile</button>
             </div>
           </div>

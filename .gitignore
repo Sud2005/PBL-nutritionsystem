@@ -1,5 +1,11 @@
 # Logs
 *.log
+backend/*.txt
+backend/run_result.txt
+backend/compile_result.txt
+backend/compile2.txt
+backend/compile3.txt
+backend/compile4.txt
 
 # Runtime data
 backend/data/*.db
@@ -23,6 +29,5 @@ backend/mvnw.cmd
 *.swp
 *.DS_Store
 
-# Local application properties (only push the sample version eventually)
-# For now, excluding to be safe while you're adding keys
-backend/src/main/resources/application.properties
+# Local application properties
+# backend/src/main/resources/application.properties

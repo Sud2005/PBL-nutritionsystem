@@ -1,40 +1,15 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api';
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        const userRes = await api.get('/dashboard');
-        setUser(userRes.data);
-        
-        try {
-          const profileRes = await api.get('/profile');
-          setProfile(profileRes.data);
-        } catch (err) {
-          if (err.response && err.response.status === 404) {
-            setProfile(null);
-          }
-        }
-      } catch (err) {
-        console.error("Error fetching data", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDashboardData();
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
+  // DEMO MODE: Hardcoded mock data
+  const user = { message: 'Welcome, Demo User!', role: 'ROLE_ADMIN' };
+  const profile = {
+    bmi: 24.2, bmiCategory: 'Normal', bmr: 1654, tdee: 2282,
+    age: 25, gender: 'MALE', heightCm: 175, weightKg: 74,
+    activityLevel: 'MODERATELY_ACTIVE', healthConditions: 'Diabetes',
+    dietaryPreference: 'VEG', allergies: 'Gluten'
   };
 
   const getGaugeColor = (cat) => {
@@ -45,97 +20,100 @@ const Dashboard = () => {
   };
 
   const getGaugeWidth = (bmi) => {
-    const min = 15;
-    const max = 40;
-    const p = ((bmi - min) / (max - min)) * 100;
+    const p = ((bmi - 15) / 25) * 100;
     return Math.max(0, Math.min(100, p)) + '%';
   };
 
-  if (loading) return <div className="container"><p>Loading...</p></div>;
-
   return (
     <div className="container animate-fade-in">
-      <div className="card" style={{maxWidth: '800px', width: '100%'}}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
+      <div className="card" style={{maxWidth: '900px', width: '100%'}}>
+        
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
           <div>
-            <h2 className="title" style={{marginBottom: '5px'}}>{user ? user.message : 'Dashboard'}</h2>
-            <p style={{color: '#697386', margin: 0}}>Role: <span style={{fontWeight: 600, color: 'var(--primary-color)'}}>{user?.role}</span></p>
+            <h2 className="title" style={{textAlign: 'left', marginBottom: '4px', fontSize: '28px'}}>{user.message}</h2>
+            <p style={{color: 'var(--text-muted)', margin: 0, fontSize: '14px'}}>
+              Role: <span style={{fontWeight: 600, color: 'var(--accent-purple)'}}>{user.role}</span>
+            </p>
           </div>
-          <button className="btn" onClick={handleLogout} style={{ width: 'auto', background: '#e3e8ee', color: '#1a1f36' }}>
-            Logout
-          </button>
+          <button className="action-btn ghost" onClick={() => alert('Demo Mode')}>Logout</button>
         </div>
 
-        {!profile ? (
-          <div style={{ textAlign: 'center', padding: '40px 20px', background: '#f8fafc', borderRadius: '12px', border: '1px dashed #cbd5e1' }}>
-            <h3 style={{marginBottom: '10px', color: '#0f172a'}}>Incomplete Health Profile</h3>
-            <p style={{color: '#64748b', marginBottom: '20px'}}>Calculate your BMI, BMR, and TDEE by submitting your health data.</p>
-            <button className="btn" onClick={() => navigate('/profile')} style={{width: 'auto', padding: '10px 24px'}}>Set Up Health Profile</button>
-          </div>
-        ) : (
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h3 style={{fontSize: '20px', color: '#1a1f36'}}>Your Health Insights</h3>
-              <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end'}}>
-                {user?.role === 'ROLE_ADMIN' && (
-                  <button className="btn" onClick={() => navigate('/admin')} style={{ width: 'auto', padding: '6px 16px', background: '#ef4444', color: '#fff', fontSize: '14px', margin: 0 }}>
-                    Admin Controls
-                  </button>
-                )}
-                {user?.role === 'ROLE_NUTRITIONIST' && (
-                  <button className="btn" onClick={() => navigate('/nutritionist')} style={{ width: 'auto', padding: '6px 16px', background: '#3b82f6', color: '#fff', fontSize: '14px', margin: 0 }}>
-                    Nutritionist Hub
-                  </button>
-                )}
-                <button className="btn" onClick={() => navigate('/history')} style={{ width: 'auto', padding: '6px 16px', background: '#10b981', color: '#fff', fontSize: '14px', margin: 0 }}>
-                  Plan History
-                </button>
-                <button className="btn" onClick={() => navigate('/chat')} style={{ width: 'auto', padding: '6px 16px', background: '#8b5cf6', color: '#fff', fontSize: '14px', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span>👩‍⚕️</span> Ask Priya AI
-                </button>
-                <button className="btn" onClick={() => navigate('/diet')} style={{ width: 'auto', padding: '6px 16px', background: 'var(--primary-color)', color: '#fff', fontSize: '14px', margin: 0 }}>
-                  Indian Diet Engine
-                </button>
-                <button className="btn" onClick={() => navigate('/profile')} style={{ width: 'auto', padding: '6px 16px', background: '#e3e8ee', color: '#1a1f36', fontSize: '14px', margin: 0 }}>
-                  Update Profile
-                </button>
-              </div>
+        {/* Navigation Actions */}
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
+          <button className="action-btn red" onClick={() => navigate('/admin')}>🛡️ Admin Controls</button>
+          <button className="action-btn blue" onClick={() => navigate('/nutritionist')}>🩺 Nutritionist Hub</button>
+          <button className="action-btn green" onClick={() => navigate('/history')}>📊 Plan History</button>
+          <button className="action-btn purple" onClick={() => navigate('/chat')}>👩‍⚕️ Ask Priya AI</button>
+          <button className="action-btn dark" onClick={() => navigate('/diet')}>🥗 Diet Engine</button>
+          <button className="action-btn ghost" onClick={() => navigate('/profile')}>⚙️ Update Profile</button>
+        </div>
+
+        {/* Section Label */}
+        <div style={{ marginBottom: '20px' }}>
+          <h3 style={{fontSize: '16px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px'}}>
+            Health Insights
+          </h3>
+        </div>
+
+        {/* Stat Tiles */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+
+          {/* BMI */}
+          <div className="stat-tile">
+            <p className="stat-label">Body Mass Index</p>
+            <div style={{display: 'flex', alignItems: 'baseline', gap: '8px'}}>
+              <span className="stat-value">{profile.bmi}</span>
+              <span style={{fontSize: '14px', fontWeight: 600, color: 'var(--accent-green)'}}>{profile.bmiCategory}</span>
             </div>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
-              
-              <div style={{ padding: '20px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-                <p style={{color: '#64748b', fontSize: '14px', marginBottom: '5px'}}>Body Mass Index (BMI)</p>
-                <div style={{display: 'flex', alignItems: 'baseline', gap: '8px'}}>
-                  <span style={{fontSize: '32px', fontWeight: 700, color: '#0f172a'}}>{profile.bmi}</span>
-                  <span style={{fontSize: '14px', fontWeight: 600, color: '#64748b'}}>{profile.bmiCategory}</span>
-                </div>
-                <div className="gauge-container">
-                  <div className={`gauge-fill ${getGaugeColor(profile.bmiCategory)}`} style={{width: getGaugeWidth(profile.bmi)}}></div>
-                </div>
-              </div>
-
-              <div style={{ padding: '20px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-                <p style={{color: '#64748b', fontSize: '14px', marginBottom: '5px'}}>Basal Metabolic Rate</p>
-                <div style={{display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '5px'}}>
-                  <span style={{fontSize: '32px', fontWeight: 700, color: '#0f172a'}}>{profile.bmr}</span>
-                  <span style={{fontSize: '14px', fontWeight: 600, color: '#64748b'}}>kcal / day</span>
-                </div>
-                <p style={{fontSize: '12px', color: '#94a3b8'}}>Calories burned at rest</p>
-              </div>
-
-              <div style={{ padding: '20px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-                <p style={{color: '#64748b', fontSize: '14px', marginBottom: '5px'}}>Total Daily Energy Expediture</p>
-                <div style={{display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '5px'}}>
-                  <span style={{fontSize: '32px', fontWeight: 700, color: '#0f172a'}}>{profile.tdee}</span>
-                  <span style={{fontSize: '14px', fontWeight: 600, color: '#64748b'}}>kcal / day</span>
-                </div>
-                <p style={{fontSize: '12px', color: '#94a3b8'}}>Calories burned total</p>
-              </div>
-
+            <div className="gauge-container" style={{marginTop: '14px'}}>
+              <div className={`gauge-fill ${getGaugeColor(profile.bmiCategory)}`} style={{width: getGaugeWidth(profile.bmi)}}></div>
             </div>
           </div>
-        )}
+
+          {/* BMR */}
+          <div className="stat-tile">
+            <p className="stat-label">Basal Metabolic Rate</p>
+            <div style={{display: 'flex', alignItems: 'baseline', gap: '6px'}}>
+              <span className="stat-value">{profile.bmr}</span>
+              <span className="stat-unit">kcal/day</span>
+            </div>
+            <p className="stat-sub">Calories burned at rest</p>
+          </div>
+
+          {/* TDEE */}
+          <div className="stat-tile">
+            <p className="stat-label">Total Energy Expenditure</p>
+            <div style={{display: 'flex', alignItems: 'baseline', gap: '6px'}}>
+              <span className="stat-value">{profile.tdee}</span>
+              <span className="stat-unit">kcal/day</span>
+            </div>
+            <p className="stat-sub">Calories burned total</p>
+          </div>
+
+        </div>
+
+        {/* Profile Summary */}
+        <div style={{ marginTop: '24px', padding: '20px', background: 'var(--glass-bg)', borderRadius: '14px', border: '1px solid var(--border-color)' }}>
+          <p style={{fontSize: '12px', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '12px', fontWeight: 600}}>Profile Summary</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+            {[
+              { label: 'Age', value: `${profile.age} yrs` },
+              { label: 'Height', value: `${profile.heightCm} cm` },
+              { label: 'Weight', value: `${profile.weightKg} kg` },
+              { label: 'Activity', value: profile.activityLevel.replace('_', ' ') },
+              { label: 'Diet', value: profile.dietaryPreference },
+              { label: 'Conditions', value: profile.healthConditions },
+              { label: 'Allergies', value: profile.allergies },
+            ].map((item, i) => (
+              <div key={i} style={{ background: 'rgba(255,255,255,0.03)', padding: '8px 14px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <span style={{fontSize: '11px', color: 'var(--text-dim)', display: 'block', marginBottom: '2px'}}>{item.label}</span>
+                <span style={{fontSize: '13px', color: 'var(--text-color)', fontWeight: 600}}>{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
   );

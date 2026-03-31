@@ -7,6 +7,7 @@ import HistoryPage from './pages/HistoryPage';
 import AdminPanel from './pages/AdminPanel';
 import NutritionistDashboard from './pages/NutritionistDashboard';
 import ChatPage from './pages/ChatPage';
+import HealthProfilePage from './pages/HealthProfilePage';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
@@ -51,7 +52,7 @@ function App() {
             <Dashboard />
           </ProtectedRoute>
         } />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Router>
   );
