@@ -1,0 +1,28 @@
+# Logs
+*.log
+
+# Runtime data
+backend/data/*.db
+
+# Build artifacts
+backend/target/
+frontend/dist/
+frontend/build/
+
+# Node dependencies
+frontend/node_modules/
+
+# Maven wrapper
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+
+# IDE Specific
+.idea/
+.vscode/
+*.swp
+*.DS_Store
+
+# Local application properties (only push the sample version eventually)
+# For now, excluding to be safe while you're adding keys
+backend/src/main/resources/application.properties
