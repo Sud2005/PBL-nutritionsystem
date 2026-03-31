@@ -1,0 +1,84 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.app:backend >---------------------------
+[INFO] Building backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 40 source files with javac [debug parameters release 17] to target\classes
+.\mvnw.cmd : WARNING: 
+A terminally 
+deprecated method in 
+sun.misc.Unsafe has 
+been called
+At line:1 char:1
++ .\mvnw.cmd compile 
+2>&1 | Out-File 
+-Encoding utf8 
+compile.log
++ 
+~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (WARNING: A te   
+ rm...has been call    
+ed:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+WARNING: sun.misc.Unsaf
+e::objectFieldOffset 
+has been called by 
+lombok.permit.Permit
+WARNING: Please 
+consider reporting 
+this to the 
+maintainers of class 
+lombok.permit.Permit
+WARNING: sun.misc.Unsaf
+e::objectFieldOffset 
+will be removed in a 
+future release
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/coding/mpj/mpj_mini_project/backend/src/main/java/com/app/backend/service/DietRuleEngine.java:[5,34] package com.fasterxml.jackson.core does not exist
+[ERROR] /C:/coding/mpj/mpj_mini_project/backend/src/main/java/com/app/backend/service/DietRuleEngine.java:[6,38] package com.fasterxml.jackson.databind does not exist
+[ERROR] /C:/coding/mpj/mpj_mini_project/backend/src/main/java/com/app/backend/service/DietRuleEngine.java:[34,19] cannot find symbol
+  symbol:   class ObjectMapper
+  location: class com.app.backend.service.DietRuleEngine
+[ERROR] /C:/coding/mpj/mpj_mini_project/backend/src/main/java/com/app/backend/service/DietRuleEngine.java:[36,58] cannot find symbol
+  symbol:   class JsonProcessingException
+  location: class com.app.backend.service.DietRuleEngine
+[INFO] 4 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.369 s
+[INFO] Finished at: 2026-03-31T23:23:33+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project backend: Compilation failure: Compilation failure: 
+[ERROR] /C:/coding/mpj/mpj_mini_project/backend/src/main/java/com/app/backend/service/DietRuleEngine.java:[5,34] package com.fasterxml.jackson.core does not exist
+[ERROR] /C:/coding/mpj/mpj_mini_project/backend/src/main/java/com/app/backend/service/DietRuleEngine.java:[6,38] package com.fasterxml.jackson.databind does not exist
+[ERROR] /C:/coding/mpj/mpj_mini_project/backend/src/main/java/com/app/backend/service/DietRuleEngine.java:[34,19] cannot find symbol
+[ERROR]   symbol:   class ObjectMapper
+[ERROR]   location: class com.app.backend.service.DietRuleEngine
+[ERROR] /C:/coding/mpj/mpj_mini_project/backend/src/main/java/com/app/backend/service/DietRuleEngine.java:[36,58] cannot find symbol
+[ERROR]   symbol:   class JsonProcessingException
+[ERROR]   location: class com.app.backend.service.DietRuleEngine
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

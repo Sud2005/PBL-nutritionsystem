@@ -76,12 +76,20 @@ const Dashboard = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{fontSize: '20px', color: '#1a1f36'}}>Your Health Insights</h3>
-              <button 
-                className="btn" 
-                onClick={() => navigate('/profile')} 
-                style={{ width: 'auto', padding: '6px 16px', background: '#e3e8ee', color: '#1a1f36', fontSize: '14px' }}>
-                Update Profile
-              </button>
+              <div>
+                <button 
+                  className="btn" 
+                  onClick={() => navigate('/diet')} 
+                  style={{ width: 'auto', padding: '6px 16px', background: 'var(--primary-color)', color: '#fff', fontSize: '14px', marginRight: '10px' }}>
+                  Indian Diet Engine
+                </button>
+                <button 
+                  className="btn" 
+                  onClick={() => navigate('/profile')} 
+                  style={{ width: 'auto', padding: '6px 16px', background: '#e3e8ee', color: '#1a1f36', fontSize: '14px' }}>
+                  Update Profile
+                </button>
+              </div>
             </div>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>

@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import HealthProfilePage from './pages/HealthProfilePage';
+import DietDashboardPage from './pages/DietDashboardPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
@@ -12,6 +13,11 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/diet" element={
+          <ProtectedRoute>
+            <DietDashboardPage />
+          </ProtectedRoute>
+        } />
         <Route path="/profile" element={
           <ProtectedRoute>
             <HealthProfilePage />
