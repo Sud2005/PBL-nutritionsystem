@@ -1,0 +1,235 @@
+:root {
+  --font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  --bg-color: #f7f9fc;
+  --text-color: #1a1f36;
+  --primary-color: #000000;
+  --primary-hover: #333333;
+  --border-color: #e3e8ee;
+  --input-bg: #ffffff;
+  --card-bg: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 400px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #697386;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #3c4257;
+}
+
+.form-control {
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--input-bg);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+}
+
+.link {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.navbar .btn-logout {
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.navbar .btn-logout:hover {
+  background: #f7f9fc;
+}
+
+.dashboard {
+  padding: 40px 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.dashboard-card {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-top: 20px;
+}
+
+/* Phase 2 Additions */
+.gauge-container {
+  width: 100%;
+  height: 12px;
+  background: #e3e8ee;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.gauge-fill {
+  height: 100%;
+  transition: width 1s ease-in-out, background-color 0.5s;
+}
+.color-underweight { background: #3b82f6; }
+.color-normal { background: #10b981; }
+.color-overweight { background: #f59e0b; }
+.color-obese { background: #ef4444; }
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.step {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-bottom: 3px solid #e3e8ee;
+  color: #697386;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.step.active {
+  border-bottom-color: var(--primary-color);
+  color: var(--primary-color);
+}
+.step.completed {
+  border-bottom-color: #10b981;
+  color: #10b981;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  background: var(--bg-color);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.checkbox-item:hover {
+  border-color: var(--primary-color);
+}
+.device-simulation {
+  text-align: center;
+  padding: 40px 20px;
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
