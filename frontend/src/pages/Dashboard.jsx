@@ -76,17 +76,24 @@ const Dashboard = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{fontSize: '20px', color: '#1a1f36'}}>Your Health Insights</h3>
-              <div>
-                <button 
-                  className="btn" 
-                  onClick={() => navigate('/diet')} 
-                  style={{ width: 'auto', padding: '6px 16px', background: 'var(--primary-color)', color: '#fff', fontSize: '14px', marginRight: '10px' }}>
+              <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end'}}>
+                {user?.role === 'ROLE_ADMIN' && (
+                  <button className="btn" onClick={() => navigate('/admin')} style={{ width: 'auto', padding: '6px 16px', background: '#ef4444', color: '#fff', fontSize: '14px', margin: 0 }}>
+                    Admin Controls
+                  </button>
+                )}
+                {user?.role === 'ROLE_NUTRITIONIST' && (
+                  <button className="btn" onClick={() => navigate('/nutritionist')} style={{ width: 'auto', padding: '6px 16px', background: '#3b82f6', color: '#fff', fontSize: '14px', margin: 0 }}>
+                    Nutritionist Hub
+                  </button>
+                )}
+                <button className="btn" onClick={() => navigate('/history')} style={{ width: 'auto', padding: '6px 16px', background: '#10b981', color: '#fff', fontSize: '14px', margin: 0 }}>
+                  Plan History
+                </button>
+                <button className="btn" onClick={() => navigate('/diet')} style={{ width: 'auto', padding: '6px 16px', background: 'var(--primary-color)', color: '#fff', fontSize: '14px', margin: 0 }}>
                   Indian Diet Engine
                 </button>
-                <button 
-                  className="btn" 
-                  onClick={() => navigate('/profile')} 
-                  style={{ width: 'auto', padding: '6px 16px', background: '#e3e8ee', color: '#1a1f36', fontSize: '14px' }}>
+                <button className="btn" onClick={() => navigate('/profile')} style={{ width: 'auto', padding: '6px 16px', background: '#e3e8ee', color: '#1a1f36', fontSize: '14px', margin: 0 }}>
                   Update Profile
                 </button>
               </div>

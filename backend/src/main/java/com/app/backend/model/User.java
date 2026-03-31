@@ -33,6 +33,10 @@ public class User {
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
+    
+    private Long assignedNutritionistId;
+    
+    private boolean allowProfileSharing;
 
     @PrePersist
     protected void onCreate() {

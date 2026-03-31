@@ -31,6 +31,9 @@ public class DietRuleEngine {
     @Autowired
     private BMRCalculatorService bmrService;
 
+    @Autowired
+    private DietaryRuleRepository ruleRepo;
+
     private final ObjectMapper mapper = new ObjectMapper();
 
     public DietPlan generateDietPlan(Long userId) throws JsonProcessingException {
@@ -113,6 +116,8 @@ public class DietRuleEngine {
             }
         } catch(Exception e) {}
 
+        List<DietaryRule> dbRules = ruleRepo.findByIsActiveTrueOrderByPriorityDesc();
+
         for (FoodItem f : allowed) {
             boolean isAvoid = false;
             boolean isLimited = false;
@@ -125,26 +130,47 @@ public class DietRuleEngine {
             }
 
             if (conditions.contains("Diabetes Type 2")) {
-                if (f.getName().contains("White Rice") || f.getName().contains("Potato")) isAvoid = true;
-                if (f.getCategory() == FoodCategory.SNACK) isAvoid = true;
+                if (f.getName().contains("White Rice") || f.getName().contains("Potato") || f.getCategory() == FoodCategory.SNACK) isAvoid = true;
                 if (f.getName().contains("Oats") || f.getName().contains("Karela")) rec.add(f);
             }
             if (conditions.contains("High Cholesterol")) {
                 if (f.getName().contains("Ghee") || f.getName().contains("Butter")) isAvoid = true;
                 if (f.getName().contains("Oats") || f.getName().contains("Almonds")) rec.add(f);
             }
-            if (conditions.contains("Hypertension")) {
-                if (f.getCategory() == FoodCategory.SNACK) isAvoid = true;
+            if (conditions.contains("Hypertension") && f.getCategory() == FoodCategory.SNACK) {
+                isAvoid = true;
             }
             if (conditions.contains("PCOS")) {
                 if (f.getName().contains("Flaxseeds")) rec.add(f);
                 if (f.getCategory() == FoodCategory.DAIRY) isLimited = true;
+            }
+
+            // Database rules
+            for (DietaryRule rule : dbRules) {
+                if (evaluateCondition(rule.getCondition(), bmi, conditions)) {
+                    String action = rule.getAction();
+                    if (action.contains("AVOID " + f.getName()) || action.contains("AVOID " + f.getCategory().name())) isAvoid = true;
+                    else if (action.contains("LIMIT " + f.getName()) || action.contains("LIMIT " + f.getCategory().name())) isLimited = true;
+                    else if (action.contains("RECOMMEND " + f.getName()) || action.contains("RECOMMEND " + f.getCategory().name())) {
+                        if (!rec.contains(f)) rec.add(f);
+                    }
+                }
             }
             
             if (isAvoid) av.add(f);
             else if (isLimited) lim.add(f);
             else if (!rec.contains(f)) rec.add(f);
         }
+    }
+
+    private boolean evaluateCondition(String condition, double bmi, List<String> conditions) {
+        if (condition == null || condition.trim().isEmpty() || condition.equals("ALL")) return true;
+        if (condition.contains("BMI > 25") && bmi > 25) return true;
+        if (condition.contains("BMI < 18.5") && bmi < 18.5) return true;
+        if (condition.contains("Diabetes") && conditions.contains("Diabetes Type 2")) return true;
+        if (condition.contains("PCOS") && conditions.contains("PCOS")) return true;
+        if (condition.contains("Hypertension") && conditions.contains("Hypertension")) return true;
+        return false;
     }
 
     private Map<String, Object> generateMealPlan(double targetCal, List<FoodItem> rec, List<FoodItem> lim) {
@@ -176,7 +202,7 @@ public class DietRuleEngine {
         int attempts = 0;
         while (currentCal < target && attempts < 15) {
             FoodItem f = foods.get(rand.nextInt(foods.size()));
-            double portionMultiplier = 0.5 + (rand.nextDouble() * 1.5); // 0.5 to 2.0 (50g to 200g)
+            double portionMultiplier = 0.5 + (rand.nextDouble() * 1.5);
             double addedCal = f.getCalories100g() * portionMultiplier;
             double pCarbs = f.getCarbs100g() * portionMultiplier;
             double pProtein = f.getProtein100g() * portionMultiplier;

@@ -2,8 +2,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
-import HealthProfilePage from './pages/HealthProfilePage';
 import DietDashboardPage from './pages/DietDashboardPage';
+import HistoryPage from './pages/HistoryPage';
+import AdminPanel from './pages/AdminPanel';
+import NutritionistDashboard from './pages/NutritionistDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
@@ -16,6 +18,21 @@ function App() {
         <Route path="/diet" element={
           <ProtectedRoute>
             <DietDashboardPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/history" element={
+          <ProtectedRoute>
+            <HistoryPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminPanel />
+          </ProtectedRoute>
+        } />
+        <Route path="/nutritionist" element={
+          <ProtectedRoute>
+            <NutritionistDashboard />
           </ProtectedRoute>
         } />
         <Route path="/profile" element={
